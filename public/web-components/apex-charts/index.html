@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Svelte + TS</title>
+  </head>
+  <body>
+    <!-- <bar-chart></bar-chart> -->
+    <line-chart></line-chart>
+    <button id="btn">変更</button>
+
+    <script>
+      const lineChart = document.getElementsByTagName("line-chart")[0];
+      // const apexChart = document.getElementsByTagName("apex-chart")[0];
+      const btn = document.getElementById("btn");
+
+      const title = "sample title";
+      const series = [
+        {
+          name: "sample123",
+          data: [28, 29, 33, 36, 32, 32, 33],
+        },
+        {
+          name: "sample234",
+          data: [12, 11, 14, 18, 17, 13, 13],
+        },
+      ];
+      const categories = ["1月", "2月", "3月", "4月", "5月", "6月", "7月"];
+      const yaxis = [
+        { color: "#FF1654", title: "sample123" },
+        { color: "#247BA0", title: "sample234" },
+      ];
+
+      customElements.whenDefined("line-chart").then(() => {
+        lineChart.title = title;
+        lineChart.series = series;
+        lineChart.yaxis = yaxis;
+        lineChart.categories = categories;
+        lineChart.addEventListener("optionschanged", (e) =>
+          alert(e.detail.options)
+        );
+        // lineChart.addEventListener("optionschanged", (e) =>
+        //   alert(e.detail.options.title.text)
+        // );
+      });
+
+      btn.addEventListener("click", () => {
+        lineChart.title = "クリックイベント後";
+      });
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
